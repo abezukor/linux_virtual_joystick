@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAdjustment" id="Analog1">
+    <property name="lower">-1</property>
+    <property name="upper">1</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="Analog2">
+    <property name="lower">-1</property>
+    <property name="upper">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="Analog3">
+    <property name="lower">-1</property>
+    <property name="upper">1</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="Analog4">
+    <property name="lower">-1</property>
+    <property name="upper">1</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="Analog5">
+    <property name="lower">-1</property>
+    <property name="upper">1</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="Analog6">
+    <property name="lower">-1</property>
+    <property name="upper">1</property>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkWindow" id="LVJ-Window">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Linux Vitrual Joystick</property>
+    <property name="resizable">False</property>
+    <property name="default-width">440</property>
+    <property name="default-height">250</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <!-- n-columns=2 n-rows=6 -->
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="row-homogeneous">True</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Axis 4: </property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Axis 3: </property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Axis 2: </property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Axis 1: </property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Axis 0: </property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="AX4">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">Analog5</property>
+                <property name="round-digits">3</property>
+                <property name="digits">3</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="AX2">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">Analog3</property>
+                <property name="round-digits">3</property>
+                <property name="digits">3</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="AX1">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">Analog2</property>
+                <property name="round-digits">3</property>
+                <property name="digits">3</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="AX0">
+                <property name="width-request">605</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">Analog1</property>
+                <property name="round-digits">3</property>
+                <property name="digits">3</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Axis 5: </property>
+                <property name="width-chars">0</property>
+                <property name="max-width-chars">0</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="AX5">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">Analog6</property>
+                <property name="round-digits">3</property>
+                <property name="digits">3</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="AX3">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">Analog4</property>
+                <property name="round-digits">3</property>
+                <property name="digits">3</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <!-- n-columns=7 n-rows=2 -->
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkToggleButton" id="BTN1">
+                <property name="label" translatable="yes">Button 1</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <signal name="toggled" handler="area0_button_click" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN6">
+                <property name="label" translatable="yes">Button 6</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">5</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN8">
+                <property name="label" translatable="yes">Button 8</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN2">
+                <property name="label" translatable="yes">Button 2</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN9">
+                <property name="label" translatable="yes">Button 9</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN3">
+                <property name="label" translatable="yes">Button 3</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN10">
+                <property name="label" translatable="yes">Button 10</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN4">
+                <property name="label" translatable="yes">Button 4</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">3</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN11">
+                <property name="label" translatable="yes">Button 11</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">3</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN5">
+                <property name="label" translatable="yes">Button 5</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">4</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN12">
+                <property name="label" translatable="yes">Button 12</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">4</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN13">
+                <property name="label" translatable="yes">Button 13</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">5</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN7">
+                <property name="label" translatable="yes">Button 7</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">6</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN14">
+                <property name="label" translatable="yes">Button 14</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">6</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
