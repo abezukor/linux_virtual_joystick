@@ -37,8 +37,8 @@ fn main() {
     }
 
     //Initialize the handlers for all the buttons
-    for i in 0..14{
-        let current_button: gtk::ToggleButton = builder.get_object(format!("BTN{}",i+1).as_str()).unwrap();
+    for i in 0..15{
+        let current_button: gtk::ToggleButton = builder.get_object(format!("BTN{}",i).as_str()).unwrap();
         let current_controller_interface = con_interface.clone();
         current_button.connect_clicked(move |btn| {
             //println!("Button {} is {}.",i, btn.get_active());

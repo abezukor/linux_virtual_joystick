@@ -39,7 +39,7 @@
   </object>
   <object class="GtkWindow" id="LVJ-Window">
     <property name="can-focus">False</property>
-    <property name="title" translatable="yes">Linux Vitrual Joystick</property>
+    <property name="title" translatable="yes">Linux Virtual Joystick</property>
     <property name="resizable">False</property>
     <property name="default-width">440</property>
     <property name="default-height">250</property>
@@ -209,11 +209,15 @@
           </packing>
         </child>
         <child>
-          <!-- n-columns=7 n-rows=2 -->
+          <!-- n-columns=5 n-rows=3 -->
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="orientation">vertical</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="row-spacing">1</property>
+            <property name="row-homogeneous">True</property>
+            <property name="column-homogeneous">True</property>
             <child>
               <object class="GtkToggleButton" id="BTN1">
                 <property name="label" translatable="yes">Button 1</property>
@@ -223,32 +227,8 @@
                 <signal name="toggled" handler="area0_button_click" swapped="no"/>
               </object>
               <packing>
-                <property name="left-attach">0</property>
+                <property name="left-attach">1</property>
                 <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="BTN6">
-                <property name="label" translatable="yes">Button 6</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">5</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="BTN8">
-                <property name="label" translatable="yes">Button 8</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
@@ -259,20 +239,8 @@
                 <property name="receives-default">True</property>
               </object>
               <packing>
-                <property name="left-attach">1</property>
+                <property name="left-attach">2</property>
                 <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="BTN9">
-                <property name="label" translatable="yes">Button 9</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
@@ -283,20 +251,8 @@
                 <property name="receives-default">True</property>
               </object>
               <packing>
-                <property name="left-attach">2</property>
+                <property name="left-attach">3</property>
                 <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="BTN10">
-                <property name="label" translatable="yes">Button 10</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">2</property>
-                <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
@@ -307,20 +263,8 @@
                 <property name="receives-default">True</property>
               </object>
               <packing>
-                <property name="left-attach">3</property>
+                <property name="left-attach">4</property>
                 <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="BTN11">
-                <property name="label" translatable="yes">Button 11</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">3</property>
-                <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
@@ -331,31 +275,19 @@
                 <property name="receives-default">True</property>
               </object>
               <packing>
-                <property name="left-attach">4</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleButton" id="BTN12">
-                <property name="label" translatable="yes">Button 12</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">4</property>
+                <property name="left-attach">0</property>
                 <property name="top-attach">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkToggleButton" id="BTN13">
-                <property name="label" translatable="yes">Button 13</property>
+              <object class="GtkToggleButton" id="BTN6">
+                <property name="label" translatable="yes">Button 6</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
               </object>
               <packing>
-                <property name="left-attach">5</property>
+                <property name="left-attach">1</property>
                 <property name="top-attach">1</property>
               </packing>
             </child>
@@ -367,8 +299,80 @@
                 <property name="receives-default">True</property>
               </object>
               <packing>
-                <property name="left-attach">6</property>
-                <property name="top-attach">0</property>
+                <property name="left-attach">2</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN8">
+                <property name="label" translatable="yes">Button 8</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">3</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN9">
+                <property name="label" translatable="yes">Button 9</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">4</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN10">
+                <property name="label" translatable="yes">Button 10</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN11">
+                <property name="label" translatable="yes">Button 11</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN12">
+                <property name="label" translatable="yes">Button 12</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN13">
+                <property name="label" translatable="yes">Button 13</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">3</property>
+                <property name="top-attach">2</property>
               </packing>
             </child>
             <child>
@@ -379,13 +383,25 @@
                 <property name="receives-default">True</property>
               </object>
               <packing>
-                <property name="left-attach">6</property>
-                <property name="top-attach">1</property>
+                <property name="left-attach">4</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="BTN0">
+                <property name="label" translatable="yes">Button 0</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
               </packing>
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
