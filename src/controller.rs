@@ -41,7 +41,10 @@ impl ControllerInterface{
         //Make a new device, and error out cleanly.
         let mut dev_builder = match uinput::default(){
             Ok(build) => build.name("Linux Virtual Joystick").unwrap(),
-            Err(_e) => {panic!("Uinput file not found, you may need to enable the uinput kernel module with modprobe uinput")}
+            Err(_e) => {panic!("
+Uinput file not found, you may need to enable the uinput kernel module with:
+    modprobe uinput
+If you are still getting this error, make sure that your user has rw access to /dev/uinput.\n")}
         };
         //Add the sliders
         for i in 0..6{

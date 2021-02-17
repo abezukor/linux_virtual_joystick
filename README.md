@@ -5,4 +5,4 @@ This is a simple program that creates a virtual joystick on your computer. I use
 To compile from source you will need [cargo and rust](https://www.rust-lang.org/tools/install).To install from source clone this repository and `cargo build`. If the compilation fail's you may need `libudev-dev`, and `pkg-config` on your distribution.
 
 ## Usage
-To start the program just `cargo run`. You may also need to enable uinput with `modprobe uinput`.
+To start the program just `cargo run`. You may also need to enable uinput with `modprobe uinput`. Your user will also need `rw` access to /dev/uinput for this program to run.
