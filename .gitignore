@@ -1,3 +1,4 @@
 /target
 *.glade~
 /.vscode
+Cargo.lock
