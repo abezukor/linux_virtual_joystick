@@ -1,77 +1,145 @@
-use uinput::event::Event;
-use uinput::event::Event::{Controller, Absolute};
-use uinput::event::Absolute::{Position, Wheel};
-use uinput::event::controller::Controller::GamePad;
-use uinput::event::controller::GamePad as GamePad_Events;
+use std::fmt::Debug;
 
-pub struct ControllerInterface{
-    button_events: [Event; 15],
-    axes_events: [Event; 6],
-    device: uinput::Device
+use std::sync::mpsc;
+
+use evdev::{
+    uinput::{VirtualDevice, VirtualDeviceBuilder},
+    AbsInfo, AbsoluteAxisType, AttributeSet, EventType, InputEvent, Key, UinputAbsSetup,
+};
+
+const SLIDER_AXES: [(AbsoluteAxisType, &str); 6] = [
+    (AbsoluteAxisType::ABS_X, "Left X"),
+    (AbsoluteAxisType::ABS_Y, "Left Y"),
+    (AbsoluteAxisType::ABS_RX, "Right X"),
+    (AbsoluteAxisType::ABS_RY, "Right Y"),
+    (AbsoluteAxisType::ABS_THROTTLE, "Throttle"),
+    (AbsoluteAxisType::ABS_BRAKE, "Break"),
+];
+
+const BUTTONS: [(Key, &str); 13] = [
+    (Key::BTN_SOUTH, " A (South)"),
+    (Key::BTN_EAST, "B (East)"),
+    (Key::BTN_WEST, "Y (West)"),
+    (Key::BTN_NORTH, "X North"),
+    (Key::BTN_TL, "LT"),
+    (Key::BTN_TR, "RT"),
+    (Key::BTN_TL2, "LB"),
+    (Key::BTN_TR2, "RB"),
+    (Key::BTN_SELECT, "Select / View"),
+    (Key::BTN_START, "Menu / Start"),
+    (Key::BTN_THUMBL, "Left Thumbstick"),
+    (Key::BTN_THUMBR, "Right Thumbstick"),
+    (Key::BTN_MODE, "Mode"),
+];
+
+pub type AnalogAxis = Control<i8>;
+pub type Button = Control<bool>;
+
+pub type EventCode = u16;
+
+pub fn build_uninput() -> anyhow::Result<(Box<[AnalogAxis]>, Box<[Button]>)> {
+    let mut device = VirtualDeviceBuilder::new()?.name("Linux Virtual Joystick");
+
+    let (event_sender, event_recv) = mpsc::channel();
+
+    let abs_setup = AbsInfo::new(0, -100, 100, 0, 0, 1);
+    let mut axes = Vec::with_capacity(SLIDER_AXES.len());
+    for (axis, name) in SLIDER_AXES {
+        let axis = UinputAbsSetup::new(axis, abs_setup);
+        device = device.with_absolute_axis(&axis)?;
+        axes.push(AnalogAxis::new(axis.code(), event_sender.clone(), name))
+    }
+
+    let mut buttons = Vec::with_capacity(SLIDER_AXES.len());
+    let mut keys = AttributeSet::<Key>::new();
+    for (button, name) in BUTTONS {
+        keys.insert(button);
+        buttons.push(Button::new(button.code(), event_sender.clone(), name))
+    }
+    let device = device.with_keys(&keys)?;
+
+    let device = device.build()?;
+
+    std::thread::spawn(|| device_thread(device, event_recv));
+
+    Ok((axes.into_boxed_slice(), buttons.into_boxed_slice()))
 }
-impl ControllerInterface{
-    pub fn new() -> ControllerInterface {
-        //All the button Events
-        let button_events = [
-            Controller(GamePad(GamePad_Events::A)),
-            Controller(GamePad(GamePad_Events::B)),
-            Controller(GamePad(GamePad_Events::C)),
-            Controller(GamePad(GamePad_Events::X)),
-            Controller(GamePad(GamePad_Events::Y)),
-            Controller(GamePad(GamePad_Events::Z)),
-            Controller(GamePad(GamePad_Events::TL)),
-            Controller(GamePad(GamePad_Events::TR)),
-            Controller(GamePad(GamePad_Events::TL2)),
-            Controller(GamePad(GamePad_Events::TR2)),
-            Controller(GamePad(GamePad_Events::Select)),
-            Controller(GamePad(GamePad_Events::Start)),
-            Controller(GamePad(GamePad_Events::Mode)),
-            Controller(GamePad(GamePad_Events::ThumbL)),
-            Controller(GamePad(GamePad_Events::ThumbR)),
-        ];
-        //All the slider events
-        let axes_events = [
-            Absolute(Position(uinput::event::absolute::Position::X)), 
-            Absolute(Position(uinput::event::absolute::Position::Y)),
-            Absolute(Position(uinput::event::absolute::Position::RX)),
-            Absolute(Position(uinput::event::absolute::Position::RY)),
-            Absolute(Wheel(uinput::event::absolute::Wheel::Throttle)),
-            Absolute(Wheel(uinput::event::absolute::Wheel::Brake))
-        ];
-        //Make a new device, and error out cleanly.
-        let mut dev_builder = match uinput::default(){
-            Ok(build) => build.name("Linux Virtual Joystick").unwrap(),
-            Err(_e) => {panic!("
-Uinput file not found, you may need to enable the uinput kernel module with:
-    modprobe uinput
-If you are still getting this error, make sure that your user has rw access to /dev/uinput.\n")}
-        };
-        //Add the sliders
-        for i in 0..6{
-            dev_builder = dev_builder.event(axes_events[i]).unwrap();
-        }
-        //Add the buttons
-        for i in 0..15{
-            dev_builder = dev_builder.event(button_events[i]).unwrap();
-        }
-        //Make a new interface
-        ControllerInterface {
-            button_events: button_events,
-            axes_events: axes_events,
-            device: dev_builder.create().unwrap()
+
+type EventValue = i32;
+
+#[derive(Debug)]
+pub struct Control<T: Default + PartialEq + Clone + ControllerValue + Debug> {
+    event_code: EventCode,
+    old_value: T,
+    pub new_value: T,
+    event_sender: mpsc::Sender<InputEvent>,
+    name: &'static str,
+}
+
+impl<T: Default + PartialEq + ControllerValue + Clone + Debug> Control<T> {
+    pub fn new(
+        event_code: EventCode,
+        event_sender: mpsc::Sender<InputEvent>,
+        name: &'static str,
+    ) -> Self {
+        Self {
+            event_code,
+            old_value: T::default(),
+            new_value: T::default(),
+            event_sender,
+            name,
         }
     }
 
-    pub fn button_change(&mut self, num_button: usize, new_state: bool){
-        //Changes the state of a controller button
-        self.device.send(self.button_events[num_button], new_state as i32).unwrap();
-        self.device.synchronize().unwrap();
+    pub fn new_value(&mut self) {
+        if self.new_value == self.old_value {
+            return;
+        }
+        let control_value = InputEvent::new(
+            T::controller_type(),
+            self.event_code,
+            self.new_value.controller_value(),
+        );
+        self.event_sender.send(control_value).unwrap();
+        self.old_value = self.new_value.clone();
     }
-    pub fn axes_change(&mut self, num_axes: usize, new_value: f64){
-        //Changes the state of a controller axes
-        //Axes go to i16 limits, so scale from float
-        let axis_value: i32 = (new_value*(i16::MAX as f64)) as i32;
-        self.device.send(self.axes_events[num_axes], axis_value).unwrap();
-        self.device.synchronize().unwrap()
+
+    pub fn name(&self) -> &'static str {
+        self.name
+    }
+}
+
+pub trait ControllerValue {
+    fn controller_type() -> EventType;
+    fn controller_value(&self) -> EventValue;
+}
+
+impl ControllerValue for i8 {
+    fn controller_type() -> EventType {
+        EventType::ABSOLUTE
+    }
+    fn controller_value(&self) -> EventValue {
+        i32::from(*self)
+    }
+}
+
+impl ControllerValue for bool {
+    fn controller_type() -> EventType {
+        EventType::KEY
+    }
+
+    fn controller_value(&self) -> EventValue {
+        i32::from(*self)
+    }
+}
+
+// This could also be done using async rust, but that seemed to be overkill for this project.
+fn device_thread(mut device: VirtualDevice, events: mpsc::Receiver<InputEvent>) {
+    loop {
+        let Ok(new_event) = events.recv() else {
+            //Sender dropped, so app is being closed.
+            break;
+        };
+        device.emit(&[new_event]).unwrap()
     }
 }
