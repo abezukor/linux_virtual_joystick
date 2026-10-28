@@ -1,6 +1,6 @@
 [package]
 name = "linux_virtual_joystick"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Abe Zukor <abezukor@gmail.com>"]
 edition = "2018"
 license = "MIT"
@@ -9,3 +9,5 @@ license = "MIT"
 anyhow = "1.0.82"
 evdev = "0.12.1"
 eframe = "0.27.2"
+resvg = { version = "0.45", default-features = false }
+x11rb = "0.13"
